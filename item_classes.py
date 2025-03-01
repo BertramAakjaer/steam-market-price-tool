@@ -12,6 +12,8 @@ class steam_item():
         
         self.last_time_search = 0
         
+        self.count_for_price = 0
+        
     def setprices(self, media_price, lowest_price):
         self.media_price = float(media_price.replace('€', '').replace(',', '.').replace('-', ''))
         self.lowest_price = float(lowest_price.replace('€', '').replace(',', '.').replace('-', ''))

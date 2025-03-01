@@ -67,7 +67,7 @@ def get_prices(steam_items):
     print("\n")
     
     for item in steam_items:
-        print(f"{item.name}\t\t{item.price_in_use} € ({(item.price_in_use + KEY_PRICE):.2f} € with keys)")
+        print(f"{item.name}\t\t{item.price_in_use:.2f} € ({(item.price_in_use + KEY_PRICE):.2f} € with keys)")
         
     print("\n")
 
@@ -76,6 +76,86 @@ def reload_menu():
     
     header = text2art("Steam Market Tool")
     print(header)
+    
+def current_amount_prices(steam_items):
+    print("\n")
+    
+    print("Current prices for bought items:")
+    
+    price_total = 0
+    
+    for item in steam_items:
+        if item.count_for_price != 0:
+            print(f"{item.name}({item.count_for_price})    \t {(item.price_in_use + KEY_PRICE) * item.count_for_price:.2f} € \t ({(item.price_in_use + KEY_PRICE):.2f} € each)")
+            price_total += (item.price_in_use + KEY_PRICE) * item.count_for_price
+    print(f"Total: {price_total:.2f} €")
+        
+    print("\n")
+    
+
+def set_prices_individually(steam_items):
+        
+    for item in steam_items:
+        if item.count_for_price != 0:
+            current_amount_prices(steam_items)
+            break
+        
+    while True:
+        print("\n")
+        print("Choose a case to change number:")
+        
+        print("[0]\tExit")
+        
+        for i, item in enumerate(steam_items):
+            print(f"[{i+1}]\t{item.name}")
+        
+        print("\n")
+        try:
+            choice = int(input(f"Choose(1..{len(steam_items)}): "))
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+            continue
+        
+        if choice == 0:
+            break
+        
+        if choice < 1 or choice > len(steam_items):
+            print("Invalid choice.")
+            print("\n")
+            continue
+        
+        item = steam_items[choice - 1]
+        
+        print("\n")
+        print("Starting price for amount session...")
+        print("Write a amount of items (e for exit): ")
+        print("\n")
+        
+        while True:
+            a = input("Amount: ")
+            
+            if a == "e":
+                break
+            
+            if not a.isdigit():
+                print("Invalid input.")
+                continue
+            
+            a = int(a)
+            
+            print("\n")
+            print(f"{item.name}({a}) \t {a * (item.price_in_use + KEY_PRICE):.2f} € ({(item.price_in_use + KEY_PRICE):.2f} € each)")
+            item.count_for_price = a
+            print("(e for exit)")
+            
+            print("\n")
+            
+        for item in steam_items:
+            if item.count_for_price != 0:
+                current_amount_prices(steam_items)
+                break
+            
+        print("\n")
 
 def main():
     
@@ -108,20 +188,30 @@ def main():
         
         print("\n")
         
-        choice = int(input("Choose (1..6): "))
+        try:
+            choice = int(input("Choose (1..6): "))
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+            continue
         
         print("\n")
         
         match choice:
             case 1:
+                set_prices_individually(steam_items)
                 print("\n")
+                
             case 2:
-                budget = int(input("What is your budget(EUR): "))
+                try:
+                    budget = int(input("What is your budget(EUR): "))
+                except ValueError:
+                    print("Invalid input. Please enter a number.")
+                    continue
                 
                 print("\n")
                 
                 for item in steam_items:
-                    print(f"{item.name} - You can buy and open {math.floor(budget/(item.price_in_use + KEY_PRICE))}, costing {math.floor((item.price_in_use + KEY_PRICE) * math.floor(budget/(item.price_in_use + KEY_PRICE)))} €")
+                    print(f"{item.name} - You can buy and open {math.floor(budget/(item.price_in_use + KEY_PRICE))}, costing {math.floor((item.price_in_use + KEY_PRICE) * math.floor(budget/(item.price_in_use + KEY_PRICE))):.2f} €")
             case 4:
                 with tqdm(steam_items, desc="Recalculating prices") as pbar:
                     for item in pbar:
