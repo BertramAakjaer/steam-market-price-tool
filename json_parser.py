@@ -11,3 +11,4 @@ def get_config():
     except json.JSONDecodeError:
         print("Error: Invalid JSON in config.json.")
         return []
+    

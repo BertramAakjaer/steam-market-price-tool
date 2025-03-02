@@ -33,7 +33,7 @@ class steam_item():
         else:
             self.price_in_use = self.lowest_price
         
-        
+    
     def change_price_metric(self):
         if self.__current_price_metric == "median":
             
