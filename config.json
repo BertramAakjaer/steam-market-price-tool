@@ -1,9 +1,4 @@
 {
-    "hydra": {
-        "name": "Hydra-Case",
-        "hash": "Operation%20Hydra%20Case"
-    },
-
     "kilo": {
         "name": "Kilo-Case",
         "hash": "Kilowatt%20Case"
@@ -14,19 +9,29 @@
         "hash": "Gallery%20Case"
     },
 
-    "nightMare": {
-        "name": "Nightmares-Case",
-        "hash": "Dreams%20%26%20Nightmares%20Case"
-    },
-
-    "recoil": {
-        "name": "Recoil-Case",
-        "hash": "Recoil%20Case"
+    "winter": {
+        "name": "Winter Offensive Weapon-Case",
+        "hash": "Winter%20Offensive%20Weapon%20Case"
     },
 
     "horizon": {
         "name": "Horizon-Case",
         "hash": "Horizon%20Case"
+    },
+
+    "prisma": {
+        "name": "Prisma-Case",
+        "hash": "Prisma%20Case"
+    },
+
+    "vanguard": {
+        "name": "Operation Vanguard Weapon-Case",
+        "hash": "Operation%20Vanguard%20Weapon%20Case"
+    },
+
+    "danger": {
+        "name": "Danger-Zone-Case",
+        "hash": "Danger%20Zone%20Case"
     }
 
 }

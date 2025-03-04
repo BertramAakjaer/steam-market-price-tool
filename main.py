@@ -7,6 +7,7 @@ import json
 
 
 KEY_PRICE = 2.35
+TIME_BETWEEN_REQUESTS = 48 # in hours
 
 def populate_price(steam_item):
     appid = "730"
@@ -40,7 +41,7 @@ def check_price_times(steam_items):
             if item.hash in price_cache:
                 last_time_search, median_price, lowest_price = price_cache[item.hash]
                 
-                if time.time() - last_time_search > 3600:  # Check if more than an hour old
+                if time.time() - last_time_search > TIME_BETWEEN_REQUESTS * 60 * 60:  # Check if more than an hour old
                     pbar.set_description(f"Loading new price from outdated cache for {item.name}")
                     
                     item.last_time_search = time.time()
